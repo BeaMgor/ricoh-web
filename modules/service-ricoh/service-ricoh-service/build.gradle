@@ -1,0 +1,11 @@
+dependencies {
+	compile project(":modules:service-ricoh:service-ricoh-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+}
+
+buildService {
+	apiDir = "../service-ricoh-api/src/main/java"
+}
+
+group = "com.ricoh.business"

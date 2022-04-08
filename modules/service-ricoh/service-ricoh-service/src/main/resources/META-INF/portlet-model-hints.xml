@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.ricoh.business.model.Usuario">
+		<field name="uuid" type="String" />
+		<field name="usuarioId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="nombre" type="String">
+			<hint name="max-length">100</hint>
+		</field>
+		<field name="apellidos" type="String" />
+		<field name="correo" type="String" />
+		<field name="fecha" type="Date" />
+	</model>
+</model-hints>

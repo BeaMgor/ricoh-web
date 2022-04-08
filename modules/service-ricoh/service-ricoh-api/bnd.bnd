@@ -1,0 +1,10 @@
+Bundle-Name: service-ricoh-api
+Bundle-SymbolicName: com.ricoh.business.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.ricoh.business.exception,\
+	com.ricoh.business.model,\
+	com.ricoh.business.service,\
+	com.ricoh.business.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../service-ricoh-service/service.xml
