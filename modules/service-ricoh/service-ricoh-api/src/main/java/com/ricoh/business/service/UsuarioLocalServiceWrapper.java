@@ -30,6 +30,16 @@ public class UsuarioLocalServiceWrapper
 		_usuarioLocalService = usuarioLocalService;
 	}
 
+	@Override
+	public void addNewUsuario(
+		long groupId, long companyId, long userId, String userName,
+		String nombre, String apellidos, String correo, java.sql.Date fecha) {
+
+		_usuarioLocalService.addNewUsuario(
+			groupId, companyId, userId, userName, nombre, apellidos, correo,
+			fecha);
+	}
+
 	/**
 	 * Adds the usuario to the database. Also notifies the appropriate model listeners.
 	 *

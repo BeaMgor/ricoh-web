@@ -15,8 +15,11 @@
 package com.ricoh.business.service.impl;
 
 import com.liferay.portal.aop.AopService;
-
+import com.ricoh.business.model.Usuario;
+import com.ricoh.business.model.impl.UsuarioImpl;
 import com.ricoh.business.service.base.UsuarioLocalServiceBaseImpl;
+
+import java.sql.Date;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -28,4 +31,27 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class UsuarioLocalServiceImpl extends UsuarioLocalServiceBaseImpl {
+	
+	public void addNewUsuario(long groupId, long companyId, long userId,
+			String userName, String nombre, String apellidos, String correo, Date fecha
+			) {
+			final Usuario usuario = new UsuarioImpl();
+			usuario.setUsuarioId(counterLocalService.increment());
+			usuario.setGroupId(groupId);
+			usuario.setCompanyId(companyId);
+			usuario.setUserId(userId);
+			usuario.setUserName(userName);
+			usuario.setNombre(nombre);
+			usuario.setApellidos(apellidos);
+			usuario.setCorreo(correo);
+			usuario.setFecha(fecha);
+
+			addUsuario(usuario);
+			//Cuando hagamos un build este método se generará
+			
+			}
+	
+	
 }
+
+

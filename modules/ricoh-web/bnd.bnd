@@ -1,0 +1,4 @@
+Bundle-Name: ricoh-web
+Bundle-SymbolicName: com.ricoh.web
+Bundle-Version: 1.0.0
+Export-Package: com.ricoh.web.constants
