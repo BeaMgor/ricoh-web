@@ -7,9 +7,15 @@ import com.ricoh.web.constants.RicohWebPortletKeys;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
+import com.liferay.adaptive.media.exception.AMRuntimeException.IOException;
+import com.liferay.captcha.util.CaptchaUtil;
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.captcha.CaptchaTextException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -17,7 +23,10 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
+import javax.portlet.PortletException;
 import javax.portlet.ProcessAction;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -40,6 +49,7 @@ import org.osgi.service.component.annotations.Component;
 	service = Portlet.class
 )
 public class RicohWebPortlet extends MVCPortlet {
+	private Log log = LogFactoryUtil.getLog(this.getClass().getName());
 	
 	@ProcessAction(name = "addUsuario")
 	public void addUsuario(ActionRequest request, ActionResponse response) {
@@ -75,5 +85,36 @@ public class RicohWebPortlet extends MVCPortlet {
 
 	}
 	
+	@ProcessAction(name = "basicFormDataWithCaptcha")
+    public void basicFormDataWithCaptcha(ActionRequest actionRequest, ActionResponse actionResponse)
+        throws IOException, PortletException {
+		
+
+        try{
+            CaptchaUtil.check(actionRequest);
+            log.info("CAPTCHA verification successful.");
+        }catch(Exception exception) {
+            if(exception instanceof CaptchaTextException) {
+                SessionErrors.add(actionRequest, exception.getClass(), exception);
+                log.error("CAPTCHA verification failed.");
+            }
+        }
+    }
+
+    @Override
+    public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+        throws  IOException, PortletException {
+        try {
+            CaptchaUtil.serveImage(resourceRequest, resourceResponse);
+        }catch(Exception exception) {
+            log.error(exception.getMessage(), exception);
+        }
+    }
+
+    protected boolean isCheckMethodOnProcessAction() {
+        return _CHECK_METHOD_ON_PROCESS_ACTION;
+    }
+
+    private static final boolean _CHECK_METHOD_ON_PROCESS_ACTION = false;
 	
 }
