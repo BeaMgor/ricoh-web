@@ -15,6 +15,7 @@
 		<liferay-ui:error
     	exception="<%= CaptchaTextException.class %>"
     	message="captcha-verification-failed" />
+    	
 		
 		<aui:form action="<%= addUsuario %>" id="frmUser" name="<portlet:namespace" >	
 		        <aui:fieldset>		

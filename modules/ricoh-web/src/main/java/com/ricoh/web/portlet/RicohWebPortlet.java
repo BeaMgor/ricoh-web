@@ -5,11 +5,14 @@ import com.ricoh.business.service.UsuarioLocalServiceUtil;
 import com.ricoh.web.constants.RicohWebPortletKeys;
 
 import java.util.Date;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 
 import com.liferay.adaptive.media.exception.AMRuntimeException.IOException;
 import com.liferay.captcha.util.CaptchaUtil;
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
+import com.liferay.mail.kernel.model.MailMessage;
+import com.liferay.mail.kernel.service.MailServiceUtil;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -20,6 +23,7 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 
+import javax.mail.internet.InternetAddress;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
@@ -81,6 +85,8 @@ public class RicohWebPortlet extends MVCPortlet {
 
 	//Añadimos el usurio
 	UsuarioLocalServiceUtil.addUsuario(usuario);
+	//send email 
+	SendEmail(correo);
 	SessionMessages.add(request, "success");
 
 	}
@@ -117,4 +123,21 @@ public class RicohWebPortlet extends MVCPortlet {
 
     private static final boolean _CHECK_METHOD_ON_PROCESS_ACTION = false;
 	
+    public void SendEmail (String email) {
+    	
+    	MailMessage mailMessage = new MailMessage();
+    	mailMessage.setBody("Usuario creado");
+    	mailMessage.setHTMLFormat(true);
+    	try {
+			mailMessage.setFrom(new InternetAddress("beatriz.mgordillo@gmail.com","Beatriz Martínez"));
+			mailMessage.setTo(new InternetAddress(email));
+			
+			mailMessage.setSubject("Email Subject");
+			MailServiceUtil.sendEmail(mailMessage);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    }
 }
