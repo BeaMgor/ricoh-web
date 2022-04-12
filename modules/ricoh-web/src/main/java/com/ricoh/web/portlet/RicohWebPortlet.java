@@ -5,6 +5,7 @@ import com.ricoh.business.service.UsuarioLocalServiceUtil;
 import com.ricoh.web.constants.RicohWebPortletKeys;
 
 import java.util.Date;
+import java.util.List;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 
@@ -29,6 +30,8 @@ import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.ProcessAction;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -40,7 +43,7 @@ import org.osgi.service.component.annotations.Component;
 @Component(
 	immediate = true,
 	property = {
-		"com.liferay.portlet.display-category=category.bea",
+		"com.liferay.portlet.display-category=category.ricoh",
 		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"com.liferay.portlet.instanceable=true",
 		"javax.portlet.display-name=RicohWeb",
@@ -88,6 +91,7 @@ public class RicohWebPortlet extends MVCPortlet {
 	//send email 
 	SendEmail(correo);
 	SessionMessages.add(request, "success");
+	response.getRenderParameters().setValue("jspPage", "/listaUsuarios.jsp");
 
 	}
 	
@@ -140,4 +144,18 @@ public class RicohWebPortlet extends MVCPortlet {
 		}
     	
     }
+    
+    @Override
+    public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {
+        final List<Usuario> usuarios = UsuarioLocalServiceUtil.getUsuarios(0, Integer.MAX_VALUE);
+     
+        renderRequest.setAttribute("usuarios", usuarios);
+     
+        try {
+			super.render(renderRequest, renderResponse);
+		} catch (java.io.IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
 }
