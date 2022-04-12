@@ -15,6 +15,7 @@ import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
 import com.liferay.mail.kernel.model.MailMessage;
 import com.liferay.mail.kernel.service.MailServiceUtil;
 import com.liferay.portal.kernel.captcha.CaptchaTextException;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
@@ -156,6 +157,13 @@ public class RicohWebPortlet extends MVCPortlet {
 		} catch (java.io.IOException e) {
 			e.printStackTrace();
 		}
+    }
+    @ProcessAction(name = "deleteUsuario")
+    public void deleteUsuario(ActionRequest request, ActionResponse response) throws IOException, PortletException, PortalException {
+        @SuppressWarnings("deprecation")
+		final String id = request.getParameter("idUsuario");
+     
+        UsuarioLocalServiceUtil.deleteUsuario(Long.valueOf(id));
     }
     
 }
