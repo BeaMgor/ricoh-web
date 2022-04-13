@@ -75,7 +75,7 @@ public class RicohWebPortlet extends MVCPortlet {
 	String correo = ParamUtil.getString(request, "correo");
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	Date fecha = ParamUtil.getDate(request, "fecha", simpleDateFormat);
-	
+	Date createDate = ParamUtil.getDate(request, "createDate", simpleDateFormat);
 	//creamos el usuario
 	Usuario usuario = UsuarioLocalServiceUtil.createUsuario(CounterLocalServiceUtil.increment(Usuario.class.getName()));
 	usuario.setNombre(nombre);
@@ -86,6 +86,7 @@ public class RicohWebPortlet extends MVCPortlet {
 	usuario.setGroupId(groupId);
 	usuario.setUserId(userId);
 	usuario.setUserName(userName);
+	usuario.setCreateDate(createDate);
 
 	//Añadimos el usurio
 	UsuarioLocalServiceUtil.addUsuario(usuario);
