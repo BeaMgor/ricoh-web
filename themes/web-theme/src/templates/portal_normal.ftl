@@ -88,9 +88,9 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12 text-center">		
-							<a class="mr-3 text-white" href="https://www.marca.com">Marca</a>
-							<a class="mx-3 text-white" href="https://www.liferay.com">Liferay</a>
-							<a class="ml-3 text-white" href="https://www.realmadrid.com">Real Madrid</a>
+							<a class="mr-3 text-white" href="https://www.marca.com"><span>Marca<span/></a>
+							<a class="mx-3 text-white" href="https://www.liferay.com"><span>Liferay<span/></a>
+							<a class="ml-3 text-white" href="https://www.realmadrid.com"><span>Real Madrid<span/></a>
 						</div>
 					</div>
 				</div>

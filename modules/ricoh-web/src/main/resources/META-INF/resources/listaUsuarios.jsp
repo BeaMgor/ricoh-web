@@ -21,6 +21,7 @@
 	        <a class="nav-link text-dark aling-left font-weight-bold" href="<%= listaUsuarios %>">Lista Usuarios</a>	       
 	      </li>
 	  </div>
+
   </nav>
   
 <liferay-ui:search-container emptyResultsMessage="No has creado todavía ningún usuario">
